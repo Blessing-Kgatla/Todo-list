@@ -228,10 +228,10 @@ export function TaskCard({ task }: { task: Task }) {
                 {loading ? "Archiving..." : "Yes, archive"}
                 </button>
                 <button
-                onClick={() => setConfirmArchive(false)}
-                className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                  onClick={() => setConfirmArchive(false)}
+                  className="text-xs text-slate-400 hover:text-slate-600 transition-colors"
                 >
-                Cancel
+                  No
                 </button>
             </div>
             )}
