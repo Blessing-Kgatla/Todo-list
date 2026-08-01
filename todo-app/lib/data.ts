@@ -3,9 +3,23 @@ import type { Task, Status } from "@prisma/client";
 
 export type TaskSortField = "topic" | "status" | "dueDate";
 
-export async function getTasks(sortBy: TaskSortField = "dueDate"): Promise<Task[]> {
+export async function getTasks(filters: TaskFilters = {}): Promise<Task[]> {
+  const { sortBy = "dueDate", search, status, topic } = filters;
+
   return prisma.task.findMany({
-    where: { archived: false },
+    where: {
+      archived: false,
+      ...(status ? { status } : {}),
+      ...(topic ? { topic } : {}),
+      ...(search
+        ? {
+            OR: [
+              { title: { contains: search } },
+              { description: { contains: search } },
+            ],
+          }
+        : {}),
+    },
     orderBy: { [sortBy]: "asc" },
   });
 }
@@ -35,6 +49,14 @@ export type TaskStats = {
   overdueCount: number;
   completionRate: number;
 };
+
+export type TaskFilters = {
+  sortBy?: TaskSortField;
+  search?: string;
+  status?: Status;
+  topic?: string;
+};
+
 
 export async function getTaskStats(): Promise<TaskStats> {
   const tasks = await prisma.task.findMany({ where: { archived: false } });

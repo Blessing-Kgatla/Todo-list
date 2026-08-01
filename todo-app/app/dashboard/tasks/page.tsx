@@ -1,17 +1,26 @@
-import { getTasks, getArchivedTasks } from "@/lib/data";
+import { getTasks, getArchivedTasks, getDistinctTopics } from "@/lib/data";
 import { TaskList } from "@/components/tasks/task-list";
 import { SortControls } from "@/components/tasks/sort-controls";
 import { CreateTaskForm } from "@/components/tasks/create-task-form";
 import { ViewToggle } from "@/components/tasks/view-toggle";
 import { ArchivedTaskCard } from "@/components/tasks/archived-task-card";
+import { SearchBar } from "@/components/tasks/search-bar";
+import { FilterControls } from "@/components/tasks/filter-controls";
 import type { TaskSortField } from "@/lib/data";
+import type { Status } from "@prisma/client";
 
 type Props = {
-  searchParams: Promise<{ sort?: string; view?: string }>;
+  searchParams: Promise<{
+    sort?: string;
+    view?: string;
+    search?: string;
+    status?: string;
+    topic?: string;
+  }>;
 };
 
 export default async function TasksPage({ searchParams }: Props) {
-  const { sort, view } = await searchParams;
+  const { sort, view, search, status, topic } = await searchParams;
 
   const isArchived = view === "archived";
   const validSorts: TaskSortField[] = ["dueDate", "status", "topic"];
@@ -19,7 +28,17 @@ export default async function TasksPage({ searchParams }: Props) {
     ? (sort as TaskSortField)
     : "dueDate";
 
-  const tasks = isArchived ? await getArchivedTasks() : await getTasks(sortBy);
+  const validStatuses: Status[] = ["Todo", "InProgress", "Completed"];
+  const statusFilter = validStatuses.includes(status as Status)
+    ? (status as Status)
+    : undefined;
+
+  const [tasks, topics] = await Promise.all([
+    isArchived
+      ? getArchivedTasks()
+      : getTasks({ sortBy, search, status: statusFilter, topic }),
+    getDistinctTopics(),
+  ]);
 
   return (
     <div>
@@ -38,6 +57,13 @@ export default async function TasksPage({ searchParams }: Props) {
           <ViewToggle current={isArchived ? "archived" : "active"} />
           {!isArchived && <CreateTaskForm />}
         </div>
+
+        {!isArchived && (
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            <SearchBar />
+            <FilterControls topics={topics} />
+          </div>
+        )}
 
         {!isArchived && <SortControls current={sortBy} />}
 

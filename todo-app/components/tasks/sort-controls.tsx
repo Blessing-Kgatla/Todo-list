@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import type { TaskSortField } from "@/lib/data";
 
 const OPTIONS: { label: string; value: TaskSortField }[] = [
@@ -12,6 +12,13 @@ const OPTIONS: { label: string; value: TaskSortField }[] = [
 
 export function SortControls({ current }: { current: TaskSortField }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  function hrefFor(sort: TaskSortField) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sort", sort);
+    return `${pathname}?${params.toString()}`;
+  }
 
   return (
     <div className="mt-6 flex items-center gap-2">
@@ -21,7 +28,7 @@ export function SortControls({ current }: { current: TaskSortField }) {
         return (
           <Link
             key={opt.value}
-            href={`${pathname}?sort=${opt.value}`}
+            href={hrefFor(opt.value)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               isActive
                 ? "bg-slate-900 text-white"

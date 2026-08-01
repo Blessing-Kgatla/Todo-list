@@ -29,14 +29,42 @@ function makeTask(overrides: Partial<Task> = {}): Task {
 }
 
 describe("getTasks", () => {
-  it("only fetches non-archived tasks, sorted by the given field", async () => {
+  it("only fetches non-archived tasks, sorted by the given field, when no filters given", async () => {
     (prisma.task.findMany as any).mockResolvedValue([makeTask()]);
 
-    await getTasks("topic");
+    await getTasks({ sortBy: "topic" });
 
     expect(prisma.task.findMany).toHaveBeenCalledWith({
       where: { archived: false },
       orderBy: { topic: "asc" },
+    });
+  });
+
+  it("filters by status and topic when provided", async () => {
+    (prisma.task.findMany as any).mockResolvedValue([]);
+
+    await getTasks({ status: "InProgress", topic: "Work" });
+
+    expect(prisma.task.findMany).toHaveBeenCalledWith({
+      where: { archived: false, status: "InProgress", topic: "Work" },
+      orderBy: { dueDate: "asc" },
+    });
+  });
+
+  it("searches title and description when a search term is given", async () => {
+    (prisma.task.findMany as any).mockResolvedValue([]);
+
+    await getTasks({ search: "milk" });
+
+    expect(prisma.task.findMany).toHaveBeenCalledWith({
+      where: {
+        archived: false,
+        OR: [
+          { title: { contains: "milk" } },
+          { description: { contains: "milk" } },
+        ],
+      },
+      orderBy: { dueDate: "asc" },
     });
   });
 });
