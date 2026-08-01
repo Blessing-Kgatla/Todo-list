@@ -24,3 +24,29 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+:root,
+[data-theme="blue"] {
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --sidebar-bg: #161b22;
+  --sidebar-active: #242c38;
+  --sidebar-hover: #1d242e;
+}
+
+[data-theme="purple"] {
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --sidebar-bg: #1e1b29;
+  --sidebar-active: #2e2640;
+  --sidebar-hover: #251f35;
+}
+
+[data-theme="mono"] {
+  --accent: #0f172a;
+  --accent-hover: #1e293b;
+  --sidebar-bg: #0f172a;
+  --sidebar-active: #1e293b;
+  --sidebar-hover: #172033;
+}

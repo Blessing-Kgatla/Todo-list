@@ -42,7 +42,7 @@ export function CreateTaskForm() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 transition-colors"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] transition-colors"
         >
           + New Task
         </button>
@@ -64,7 +64,7 @@ export function CreateTaskForm() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Buy groceries"
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               />
             </div>
 
@@ -78,7 +78,7 @@ export function CreateTaskForm() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Optional details..."
                 rows={3}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900 resize-none"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none"
               />
             </div>
 
@@ -92,7 +92,7 @@ export function CreateTaskForm() {
                   type="date"
                   value={dueDate}
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                 />
               </div>
 
@@ -106,7 +106,7 @@ export function CreateTaskForm() {
                   onChange={(e) => setTopic(e.target.value)}
                   placeholder="Type or pick below"
                   list="topic-suggestions"
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                 />
                 <datalist id="topic-suggestions">
                   {SUGGESTED_TOPICS.map((t) => (
@@ -132,7 +132,7 @@ export function CreateTaskForm() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700 transition-colors disabled:opacity-50"
+                className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--accent-hover)] transition-colors"
               >
                 {loading ? "Saving..." : "Save Task"}
               </button>

@@ -21,7 +21,7 @@ export function ViewToggle({ current }: { current: "active" | "archived" }) {
         onClick={() => switchTo("active")}
         className={`rounded-md px-4 py-1.5 text-xs font-medium transition-colors ${
           current === "active"
-            ? "bg-slate-900 text-white"
+            ? "bg-[var(--accent)] text-white"
             : "text-slate-500 hover:text-slate-700"
         }`}
       >
@@ -31,7 +31,7 @@ export function ViewToggle({ current }: { current: "active" | "archived" }) {
         onClick={() => switchTo("archived")}
         className={`rounded-md px-4 py-1.5 text-xs font-medium transition-colors ${
           current === "archived"
-            ? "bg-slate-900 text-white"
+            ? "bg-[var(--accent)] text-white"
             : "text-slate-500 hover:text-slate-700"
         }`}
       >

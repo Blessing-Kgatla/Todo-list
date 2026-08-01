@@ -30,7 +30,7 @@ export function FilterControls({ topics }: { topics: string[] }) {
       <select
         value={searchParams.get("status") ?? ""}
         onChange={(e) => updateParam("status", e.target.value)}
-        className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900"
+        className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
       >
         {STATUS_OPTIONS.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -42,7 +42,7 @@ export function FilterControls({ topics }: { topics: string[] }) {
       <select
         value={searchParams.get("topic") ?? ""}
         onChange={(e) => updateParam("topic", e.target.value)}
-        className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900"
+        className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
       >
         <option value="">All Topics</option>
         {topics.map((t) => (

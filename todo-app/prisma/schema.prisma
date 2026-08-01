@@ -28,5 +28,9 @@ model Task {
   archived    Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
 
+model Settings {
+  id    Int    @id @default(1)
+  theme String @default("blue")
 }

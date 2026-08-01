@@ -31,7 +31,7 @@ export function SortControls({ current }: { current: TaskSortField }) {
             href={hrefFor(opt.value)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               isActive
-                ? "bg-slate-900 text-white"
+                ? "bg-[var(--accent)] text-white"
                 : "bg-white text-slate-500 border border-slate-200 hover:border-slate-300"
             }`}
           >

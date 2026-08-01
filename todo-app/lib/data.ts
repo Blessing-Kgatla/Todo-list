@@ -89,3 +89,12 @@ export async function getTaskStats(): Promise<TaskStats> {
 
   return { total, byStatus, byTopic, overdueCount, completionRate };
 }
+
+export async function getSettings() {
+  // upsert guarantees a settings row always exists, even on first run
+  return prisma.settings.upsert({
+    where: { id: 1 },
+    update: {},
+    create: { id: 1, theme: "blue" },
+  });
+}

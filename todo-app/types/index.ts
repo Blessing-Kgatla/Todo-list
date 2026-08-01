@@ -1,3 +1,2 @@
-import type { Task, Status } from "@prisma/client";
-
-export type { Task, Status };
+import type { Task, Status, Settings } from "@prisma/client";
+export type { Task, Status, Settings };
