@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo App
 
-## Getting Started
+A local-first to-do application built with Next.js and SQLite. No accounts, no deployment — download it, run it with Node, and it serves a single user on the machine it runs on.
 
-First, run the development server:
+Full documentation lives in [`documentation/`](./documentation):
+- [Third-Party Code](./documentation/third-party-code.md)
+- [Database Design](./documentation/database-design.md)
+- [Running It](./documentation/running-it.md)
+- [AI Transcript](./documentation/AI-Transcript.pdf)
+
+## Quick Start
+
+**Requirements:** Node.js v24.13.1 (run `node -v` to confirm yours matches, or use a version manager like `nvm` to switch).
+
+From a clean clone, with nothing else to hand:
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Create your local environment file
+echo 'DATABASE_URL="file:./dev.db"' > .env
+
+# 3. Generate the Prisma client and create the SQLite database
+npx prisma generate
+npx prisma migrate dev
+
+# 4. Run the app
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open **http://localhost:3000** — it redirects to `/dashboard/tasks`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+```
 
-## Learn More
+Tests use a mocked Prisma client and never touch `dev.db`, so they're safe to run at any time without affecting your local data.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Create, edit, and archive tasks (archived tasks are never deleted — they remain viewable)
+- Each task has a Title, Description, Due Date, and Topic
+- Fixed statuses: Todo, In Progress, Completed
+- Overdue tasks are visually flagged (computed from the due date, not stored as a status)
+- Sort and filter tasks by topic, status, and due date; free-text search
+- Analysis dashboard with stats and charts
+- Theme switcher (Settings section), persisted in the database
+- All data persists in a local SQLite database across restarts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Assisted-by: Claude-Web[Claude Sonnet 5]
