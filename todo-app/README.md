@@ -2,11 +2,11 @@
 
 A local-first to-do application built with Next.js and SQLite. No accounts, no deployment — download it, run it with Node, and it serves a single user on the machine it runs on.
 
-Full documentation lives in [`documentation/`](./documentation):
-- [Third-Party Code](./documentation/third-party-code.md)
-- [Database Design](./documentation/database-design.md)
-- [Running It](./documentation/running-it.md)
-- [AI Transcript](./documentation/AI-Transcript.pdf)
+Full documentation lives in [`documentation/`](./docs):
+- [Third-Party Code](./docs/third-party-code.md)
+- [Database Design](./docs/database-design.md)
+- [Running It](./docs/running-it.md)
+- [AI Transcript](./docs/AI-Transcript.pdf)
 
 ## Quick Start
 
@@ -15,17 +15,23 @@ Full documentation lives in [`documentation/`](./documentation):
 From a clean clone, with nothing else to hand:
 
 ```bash
-# 1. Install dependencies
+# 1. Move into project
+git clone https://github.com/Blessing-Kgatla/Todo-list.git
+
+cd Todo-list
+cd todo-app
+
+# 2. Install dependencies
 npm install
 
-# 2. Create your local environment file
+# 3. Create your local environment file
 echo 'DATABASE_URL="file:./dev.db"' > .env
 
-# 3. Generate the Prisma client and create the SQLite database
+# 4. Generate the Prisma client and create the SQLite database
 npx prisma generate
 npx prisma migrate dev
 
-# 4. Run the app
+# 5. Run the app
 npm run dev
 ```
 
