@@ -29,7 +29,7 @@ echo 'DATABASE_URL="file:./dev.db"' > .env
 
 # 4. Generate the Prisma client and create the SQLite database
 npx prisma generate
-npx prisma migrate dev
+npx prisma migrate dev --name init
 
 # 5. Run the app
 npm run dev
